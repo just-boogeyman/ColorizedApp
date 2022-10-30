@@ -12,18 +12,18 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ColorizedApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9if-2e-8mw">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9if-2e-8mw">
                                 <rect key="frame" x="30" y="84" width="354" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="6H6-wF-H5c"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pmn-sr-bFo">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pmn-sr-bFo">
                                 <rect key="frame" x="16" y="369" width="382" height="140"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1yk-Ks-CVe">
@@ -85,20 +85,20 @@
                                                 <rect key="frame" x="-2" y="0.0" width="286" height="25"/>
                                                 <color key="tintColor" red="1" green="0.31548532620000003" blue="0.38479122970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="redSliderAction" destination="BYZ-38-t0r" eventType="valueChanged" id="pGf-Sq-e7u"/>
+                                                    <action selector="sliderActions:" destination="BYZ-38-t0r" eventType="valueChanged" id="eSl-k3-3re"/>
                                                 </connections>
                                             </slider>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="lGk-zr-l6a">
                                                 <rect key="frame" x="-2" y="58" width="286" height="25"/>
                                                 <color key="tintColor" red="0.58051813490000004" green="1" blue="0.70302311689999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <connections>
-                                                    <action selector="greenSliderAction" destination="BYZ-38-t0r" eventType="valueChanged" id="VqW-oX-W13"/>
+                                                    <action selector="sliderActions:" destination="BYZ-38-t0r" eventType="valueChanged" id="pTx-Jj-h7V"/>
                                                 </connections>
                                             </slider>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mcF-Lb-ik3">
                                                 <rect key="frame" x="-2" y="116" width="286" height="25"/>
                                                 <connections>
-                                                    <action selector="blueSliderAction" destination="BYZ-38-t0r" eventType="valueChanged" id="Xrd-Im-3Hn"/>
+                                                    <action selector="sliderActions:" destination="BYZ-38-t0r" eventType="valueChanged" id="gYn-mf-5gM"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -118,6 +118,7 @@
                             <constraint firstItem="Pmn-sr-bFo" firstAttribute="top" secondItem="9if-2e-8mw" secondAttribute="bottom" constant="85" id="hlS-qL-GWz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pmn-sr-bFo" secondAttribute="trailing" constant="16" id="lG7-Xq-Qd6"/>
                             <constraint firstItem="Pmn-sr-bFo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="qyv-Ba-gc6"/>
+                            <constraint firstItem="9if-2e-8mw" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.223214" id="waM-ly-Pad"/>
                         </constraints>
                     </view>
                     <connections>

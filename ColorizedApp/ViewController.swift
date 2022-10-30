@@ -22,52 +22,27 @@ class ViewController: UIViewController {
     @IBOutlet weak var blueSlider: UISlider!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         resultColorView.layer.cornerRadius = 10
         chengeView()
-        setupRedSlider()
-        setupGreenSlider()
-        setupBlueSlider()
     }
 
 // MARK: - IB Actions
-    
-    @IBAction func redSliderAction() {
-        redValueLable.text = String(format: "%.1f", redSlider.value)
-        chengeView()
-    }
-    
-    
-    @IBAction func greenSliderAction() {
-        greenValueLable.text = String(format: "%.1f", greenSlider.value)
-        chengeView()
-    }
-    
-    
-    @IBAction func blueSliderAction() {
-        blueValueLable.text = String(format: "%.1f", blueSlider.value)
+    @IBAction func sliderActions(_ sender: UISlider) {
+        switch sender {
+        case redSlider:
+            redValueLable.text = String(format: "%.1f", sender.value)
+        case greenSlider:
+            greenValueLable.text = String(format: "%.1f", sender.value)
+        default:
+            blueValueLable.text = String(format: "%.1f", sender.value)
+        }
         chengeView()
     }
     
     
 // MARK: - Private Metods
-    
-    private func setupRedSlider() {
-        redSlider.minimumValue = 0
-        redSlider.maximumValue = 1
-    }
-    
-    private func setupGreenSlider() {
-        greenSlider.minimumValue = 0
-        greenSlider.maximumValue = 1
-    }
-    
-    private func setupBlueSlider() {
-        blueSlider.minimumValue = 0
-        blueSlider.maximumValue = 1
-    }
     
     private func chengeView() {
         resultColorView.backgroundColor = UIColor(
