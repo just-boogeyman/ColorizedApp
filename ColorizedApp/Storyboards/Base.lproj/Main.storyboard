@@ -48,7 +48,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pmn-sr-bFo">
-                                <rect key="frame" x="16" y="373" width="382" height="140"/>
+                                <rect key="frame" x="16" y="346" width="382" height="140"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1yk-Ks-CVe">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="140"/>
@@ -170,10 +170,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
+                            <constraint firstItem="Pmn-sr-bFo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HVs-lx-rwh"/>
                             <constraint firstItem="9if-2e-8mw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="HxL-EN-zaV"/>
                             <constraint firstItem="9if-2e-8mw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="PII-JG-XQT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9if-2e-8mw" secondAttribute="trailing" constant="30" id="Srr-Kj-ZCb"/>
-                            <constraint firstItem="Pmn-sr-bFo" firstAttribute="top" secondItem="9if-2e-8mw" secondAttribute="bottom" constant="85" id="hlS-qL-GWz"/>
+                            <constraint firstItem="Pmn-sr-bFo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-32" id="WPt-Tl-cb3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pmn-sr-bFo" secondAttribute="trailing" constant="16" id="lG7-Xq-Qd6"/>
                             <constraint firstItem="HAL-qP-DuF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="owV-S3-ooB"/>
                             <constraint firstItem="Pmn-sr-bFo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="qyv-Ba-gc6"/>
