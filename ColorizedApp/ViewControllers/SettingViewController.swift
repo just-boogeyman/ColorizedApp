@@ -25,18 +25,15 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
     
+    private var rgba: CIColor = CIColor(red: 1, green: 1, blue: 1, alpha: 1)
     var colorStartVC: UIColor!
     var delegate: SettingColorDelegate!
-    var alpha: CGFloat = 0.0
-    var red: CGFloat = 0.0
-    var green: CGFloat = 0.0
-    var blue: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resultColorView.layer.cornerRadius = 10
-        self.addDoneButtonOnKeyboard()
+        addDoneButtonOnKeyboard()
         startSettings()
+        resultColorView.layer.borderWidth = 3
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -55,24 +52,27 @@ class SettingViewController: UIViewController {
     @IBAction func sliderActions(_ sender: UISlider) {
         switch sender {
         case redSlider:
-            red = CGFloat(sender.value)
-            redValueLable.text = String(format: "%.2f", red)
-            redTextField.text = String(format: "%.2f", red)
+            redValueLable.text = String(format: "%.2f", rgba.red)
+            redTextField.text = String(format: "%.2f", rgba.red)
         case greenSlider:
-            green = CGFloat(sender.value)
-            greenValueLable.text = String(format: "%.2f", green)
-            greenTextField.text = String(format: "%.2f", green)
+            greenValueLable.text = String(format: "%.2f", rgba.green)
+            greenTextField.text = String(format: "%.2f", rgba.green)
         default:
-            blue = CGFloat(sender.value)
-            blueValueLable.text = String(format: "%.2f", blue)
-            blueTextField.text = String(format: "%.2f", blue)
+            blueValueLable.text = String(format: "%.2f", rgba.blue)
+            blueTextField.text = String(format: "%.2f", rgba.blue)
         }
         chengeView()
     }
     
     
     @IBAction func doneActionTapped() {
-        delegate.updateColor(red: red, green: green, blue: blue, alpha: alpha)
+        delegate.updateColor(color: UIColor(
+            red: rgba.red,
+            green: rgba.green,
+            blue: rgba.blue,
+            alpha: 1
+        )
+        )
         dismiss(animated: true)
     }
     
@@ -81,33 +81,53 @@ class SettingViewController: UIViewController {
 // MARK: - Private Metods
     
     private func chengeView() {
+        rgba = CIColor(color: UIColor(
+            red: CGFloat(redSlider.value),
+            green: CGFloat(greenSlider.value),
+            blue: CGFloat(blueSlider.value),
+            alpha: 1
+        )
+        )
         resultColorView.backgroundColor = UIColor(
-            red: red,
-            green: green,
-            blue: blue,
+            red: rgba.red,
+            green: rgba.green,
+            blue: rgba.blue,
             alpha: 1
         )
     }
     
     private func startSettings() {
-        let ciColor = CIColor(color: colorStartVC)
+        rgba = CIColor(color: colorStartVC)
         redTextField.delegate = self
         greenTextField.delegate = self
         blueTextField.delegate = self
-        alpha = ciColor.alpha
-        red = ciColor.red
-        green = ciColor.green
-        blue = ciColor.blue
-        resultColorView.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
-        redValueLable.text = String(format: "%.2f", red)
-        greenValueLable.text = String(format: "%.2f", green)
-        blueValueLable.text = String(format: "%.2f", blue)
-        redTextField.text = String(format: "%.2f", red)
-        greenTextField.text = String(format: "%.2f", green)
-        blueTextField.text = String(format: "%.2f", blue)
-        redSlider.value = Float(red)
-        greenSlider.value = Float(green)
-        blueSlider.value = Float(blue)
+        settingColorView()
+        settingLables()
+        settingTextFields()
+        settingSliders()
+    }
+    
+    private func settingColorView() {
+        resultColorView.layer.cornerRadius = 10
+        resultColorView.backgroundColor = colorStartVC
+    }
+    
+    private func settingLables() {
+        redValueLable.text = String(format: "%.2f", rgba.red)
+        greenValueLable.text = String(format: "%.2f", rgba.green)
+        blueValueLable.text = String(format: "%.2f", rgba.blue)
+    }
+    
+    private func settingTextFields() {
+        redTextField.text = String(format: "%.2f", rgba.red)
+        greenTextField.text = String(format: "%.2f", rgba.green)
+        blueTextField.text = String(format: "%.2f", rgba.blue)
+    }
+    
+    private func settingSliders() {
+        redSlider.value = Float(rgba.red)
+        greenSlider.value = Float(rgba.green)
+        blueSlider.value = Float(rgba.blue)
     }
 }
 
@@ -115,21 +135,19 @@ class SettingViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 extension SettingViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let newValue = textField.text else { return }
-        guard let color = Float(newValue) else { return }
+        guard let text = textField.text else { return }
+        guard let value = Float(text) else { return }
         switch textField {
         case redTextField:
-            red = CGFloat(color)
-            redValueLable.text = String(format: "%.2f", red)
-            redSlider.value = Float(red)
+            print(String(format: "%.2f", value))
+            redValueLable.text = String(format: "%.2f", value)
+            redSlider.setValue(Float(value), animated: true)
         case greenTextField:
-            green = CGFloat(color)
-            greenValueLable.text = String(format: "%.2f", green)
-            greenSlider.value = Float(green)
+            greenValueLable.text = String(format: "%.2f", value)
+            greenSlider.setValue(Float(value), animated: true)
         default:
-            blue = CGFloat(color)
-            blueValueLable.text = String(format: "%.2f", blue)
-            blueSlider.value = Float(blue)
+            blueValueLable.text = String(format: "%.2f", value)
+            blueSlider.setValue(Float(value), animated: true)
         }
         chengeView()
     }
