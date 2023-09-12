@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ColorizedAppViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
