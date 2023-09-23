@@ -9,6 +9,7 @@ import UIKit
 
 class SettingViewController: UIViewController {
     
+    //MARK: IBOutlets
     @IBOutlet var viewColor: UIView!
     
     @IBOutlet var valueRedLable: UILabel!
@@ -22,7 +23,6 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var redTextField: UITextField!
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
-    
     
     lazy var toolBar: UIToolbar = {
         let tool: UIToolbar = .init(frame : .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
@@ -55,13 +55,7 @@ class SettingViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
-    
-    @objc private func doneButtonPressed(sender: UIBarButtonItem) {
-        redTextField.resignFirstResponder()
-        greenTextField.resignFirstResponder()
-        blueTextField.resignFirstResponder()
-    }
-    
+        
     //MARK: IBAction
     @IBAction func chengeActionSlider(_ sender: UISlider) {
         switch sender {
@@ -152,9 +146,16 @@ private extension SettingViewController {
     func getUI(color: CIColor) -> UIColor {
         UIColor(red: color.red, green: color.green, blue: color.blue, alpha: color.alpha)
     }
+    
+    @objc func doneButtonPressed(sender: UIBarButtonItem) {
+        redTextField.resignFirstResponder()
+        greenTextField.resignFirstResponder()
+        blueTextField.resignFirstResponder()
+    }
 }
 
 
+//MARK: - UITextFieldDelegate
 extension SettingViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
