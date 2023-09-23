@@ -24,22 +24,42 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var blueTextField: UITextField!
     
     
+    lazy var toolBar: UIToolbar = {
+        let tool: UIToolbar = .init(frame : .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        tool.barStyle = .default
+        tool.isTranslucent = false
+        tool.tintColor = .blue
+        tool.sizeToFit()
+        
+        let spaceArea: UIBarButtonItem = .init(systemItem: .flexibleSpace)
+        let doneButton: UIBarButtonItem = .init(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(doneButtonPressed(sender:))
+        )
+        tool.setItems([spaceArea, doneButton], animated: true)
+        return tool
+    }()
+    
     var color: UIColor!
     var colorRGB: CIColor = .black
     var delegate: SettingViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        redTextField.delegate = self
-        greenTextField.delegate = self
-        blueTextField.delegate = self
-        
         settingViewStart()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
+    }
+    
+    @objc private func doneButtonPressed(sender: UIBarButtonItem) {
+        redTextField.resignFirstResponder()
+        greenTextField.resignFirstResponder()
+        blueTextField.resignFirstResponder()
     }
     
     //MARK: IBAction
@@ -66,23 +86,17 @@ class SettingViewController: UIViewController {
 }
 
 
-extension SettingViewController: UITextFieldDelegate {
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("textFieldShouldBeginEditing")
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("1234567")
-    }
-}
-
-
-
 //MARK: - Private Metods
 private extension SettingViewController {
     func settingViewStart() {
+        redTextField.delegate = self
+        greenTextField.delegate = self
+        blueTextField.delegate = self
+        
+        redTextField.inputAccessoryView = toolBar
+        greenTextField.inputAccessoryView = toolBar
+        blueTextField.inputAccessoryView = toolBar
+        
         viewColor.layer.shadowOpacity = 0.5
         viewColor.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
         viewColor.layer.shadowRadius = 10
@@ -140,4 +154,28 @@ private extension SettingViewController {
     }
 }
 
+
+extension SettingViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let valueTF = Float(textField.text ?? "0") ?? 0
+        
+        switch textField.tag {
+        case 0:
+            redSlider.value = valueTF
+            updateValueLable(valueRedLable, redSlider)
+            updateSettings()
+        case 1:
+            greenSlider.value = valueTF
+            updateValueLable(valueGreenLable, greenSlider)
+            updateSettings()
+        case 2:
+            blueSlider.value = valueTF
+            updateValueLable(valueBlueLable, blueSlider)
+            updateSettings()
+        default:
+            break
+        }
+    }
+}
 
