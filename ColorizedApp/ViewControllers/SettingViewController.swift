@@ -43,7 +43,7 @@ class SettingViewController: UIViewController {
     }()
     
     var color: UIColor!
-    var colorRGB: CIColor = .black
+    private var colorRGB: CIColor = .black
     var delegate: SettingViewControllerDelegate!
     
     override func viewDidLoad() {
@@ -60,21 +60,21 @@ class SettingViewController: UIViewController {
     @IBAction func chengeActionSlider(_ sender: UISlider) {
         switch sender {
         case redSlider:
-            updateValueLable(valueRedLable, redSlider)
-            updateTextField(redTextField, redSlider)
+            valueRedLable.text = setValue(redSlider)
+            redTextField.text = setValue(redSlider)
         case greenSlider:
-            updateValueLable(valueGreenLable, greenSlider)
-            updateTextField(greenTextField, greenSlider)
+            valueGreenLable.text = setValue(greenSlider)
+            greenTextField.text = setValue(greenSlider)
         default:
-            updateValueLable(valueBlueLable, blueSlider)
-            updateTextField(blueTextField, blueSlider)
+            valueBlueLable.text = setValue(blueSlider)
+            blueTextField.text = setValue(blueSlider)
 
         }
         updateSettings()
     }
     
     @IBAction func saveAction() {
-        delegate.setNewColor(for: colorRGB)
+        delegate.setNewColor(for: viewColor.backgroundColor ?? .white)
         dismiss(animated: true)
     }
 }
@@ -113,44 +113,41 @@ private extension SettingViewController {
         viewColor.backgroundColor = getUI(color: colorRGB)
     }
     
-    func updateValueLable(_ lable: UILabel, _ slider: UISlider) {
-        lable.text = String(format: "%.2f", slider.value)
-    }
-    
-    func updateSlider(_ slider: UISlider, value: CGFloat) {
-        slider.value = Float(value)
-    }
-    
-    func updateTextField(_ textField: UITextField, _ slider: UISlider) {
-        textField.text = String(format: "%.2f", slider.value)
+    func setValue(_ slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
     
     func updateFullSlider() {
-        updateSlider(redSlider, value: colorRGB.red)
-        updateSlider(greenSlider, value: colorRGB.green)
-        updateSlider(blueSlider, value: colorRGB.blue)
+        redSlider.setValue(Float(colorRGB.red), animated: true)
+        greenSlider.setValue(Float(colorRGB.green), animated: true)
+        blueSlider.setValue(Float(colorRGB.blue), animated: true)
     }
     
     func updateFullTF() {
-        updateTextField(redTextField, redSlider)
-        updateTextField(greenTextField, greenSlider)
-        updateTextField(blueTextField, blueSlider)
+        redTextField.text = setValue(redSlider)
+        greenTextField.text = setValue(greenSlider)
+        blueTextField.text = setValue(blueSlider)
     }
     
     func updateValueLables() {
-        updateValueLable(valueRedLable, redSlider)
-        updateValueLable(valueBlueLable, blueSlider)
-        updateValueLable(valueGreenLable, greenSlider)
+        valueRedLable.text = setValue(redSlider)
+        valueGreenLable.text = setValue(greenSlider)
+        valueBlueLable.text = setValue(blueSlider)
     }
     
     func getUI(color: CIColor) -> UIColor {
-        UIColor(red: color.red, green: color.green, blue: color.blue, alpha: color.alpha)
+        UIColor(
+            red: color.red,
+            green: color.green,
+            blue: color.blue,
+            alpha: color.alpha
+        )
     }
     
     @objc func doneButtonPressed(sender: UIBarButtonItem) {
         redTextField.resignFirstResponder()
-        greenTextField.resignFirstResponder()
-        blueTextField.resignFirstResponder()
+        greenSlider.resignFirstResponder()
+        blueSlider.resignFirstResponder()
     }
 }
 
@@ -163,19 +160,17 @@ extension SettingViewController: UITextFieldDelegate {
         
         switch textField.tag {
         case 0:
-            redSlider.value = valueTF
-            updateValueLable(valueRedLable, redSlider)
+            redSlider.setValue(valueTF, animated: true)
+            valueRedLable.text = setValue(redSlider)
             updateSettings()
         case 1:
-            greenSlider.value = valueTF
-            updateValueLable(valueGreenLable, greenSlider)
-            updateSettings()
-        case 2:
-            blueSlider.value = valueTF
-            updateValueLable(valueBlueLable, blueSlider)
+            greenSlider.setValue(valueTF, animated: true)
+            valueGreenLable.text = setValue(greenSlider)
             updateSettings()
         default:
-            break
+            blueSlider.setValue(valueTF, animated: true)
+            valueBlueLable.text = setValue(blueSlider)
+            updateSettings()
         }
     }
 }

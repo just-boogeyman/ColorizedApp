@@ -8,16 +8,12 @@
 import UIKit
 
 protocol SettingViewControllerDelegate {
-    func setNewColor(for color: CIColor)
+    func setNewColor(for color: UIColor)
 }
 
 
 class ColorViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingVC = segue.destination as? SettingViewController else { return }
         settingVC.color = view.backgroundColor
@@ -27,12 +23,7 @@ class ColorViewController: UIViewController {
 
 
 extension ColorViewController: SettingViewControllerDelegate {
-    func setNewColor(for color: CIColor) {
-        view.backgroundColor = UIColor(
-            red: color.red,
-            green: color.green,
-            blue: color.blue,
-            alpha: color.alpha
-        )
+    func setNewColor(for color: UIColor) {
+        view.backgroundColor = color
     }
 }
